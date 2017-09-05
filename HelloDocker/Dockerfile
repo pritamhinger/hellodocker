@@ -6,12 +6,12 @@ COPY *.csproj ./
 RUN dotnet restore
 
 #Copy everything else and build
-COPY ../
+COPY . ./
 RUN dotnet publish -c Release -o out
 
 #Build runtime image
-FROM microsoft/microsoft/aspnetcore:2.0
+FROM microsoft/aspnetcore:2.0
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "hellodocker.dll"]
+ENTRYPOINT ["dotnet", "HelloDocker.dll"]
 
